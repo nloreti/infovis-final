@@ -1,0 +1,39 @@
+<?php
+#$current = "http://search.twitter.com/trends/current.json";
+ 
+$current = "http://search.twitter.com/search.json?q=exito;rpp=1";
+
+#echo $current;
+$c = curl_init();
+ 
+
+
+curl_setopt($c, CURLOPT_URL, $current);
+curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+$ce = curl_exec($c);
+ 
+$trends = json_decode($ce,true);
+foreach ($trends as $key => $value){
+//	print_r($value);
+//	echo "<br/><br/>";
+	echo  $key . ':' . $value;
+	echo "<br/>";
+	if ( $key === "results" ){
+		echo "ENTRE";
+		$value[0];
+		//foreach( $value as $clave => $valor ){
+		//	echo $clave . ':' . $valor;
+		//	echo "<br/>";
+		//}
+	}
+}
+//$trends = array_values(array_values($trends["text"]));
+ 
+//print_r($trends[0]);
+//foreach ($trends[0] as $trend) {
+//    echo $trend["name"] . " ";
+//}
+ 
+curl_close($c);
+echo "hola";
+?>
