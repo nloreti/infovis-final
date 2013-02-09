@@ -74,7 +74,7 @@ function getTweets($query,$quantity){
 	foreach ($trends as $key => $value){
 		if ( $key === "results" ){
 			foreach( $value as $item => $vector ){
-				print_r($vector);
+				//print_r($vector);
 				foreach ( $vector as $clave => $valor){
 					if( $clave === "created_at"){
 						$created_at = $valor;
@@ -96,16 +96,17 @@ function getTweets($query,$quantity){
 				$arrayTweets->append($tweet);
 			}
 		}
+
 	}
 
 	//Imprime Tweets
-	printTweets($arrayTweets);
+	//printTweets($arrayTweets);
 
 	//Cierro el Curl
 	curl_close($c);
 
 	//Retorno el array de Tweets
-	return $this->arrayTweets;
+	return $arrayTweets;
 
 }
 
