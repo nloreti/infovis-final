@@ -121,6 +121,5 @@ function printTweets($arrayTweets){
 }
 
 //LLamada a la API
-getTweets("%23exito","3");
-
+//getTweets("%23exito","3");
 ?>
