@@ -3,14 +3,13 @@
 require_once("tweetScript.php");
 
 $arrayTweets = new ArrayObject();
+$hashTags = array();
+$arrayTweets = getTweets("%23good","3");
 
-echo "Antes";
-$arrayTweets = getTweets("%23exito","3");
-echo "dsp";
 //echo $arrayTweets;
 
 printTweets($arrayTweets);
 
-echo "hola";
+tweets2hashtags($arrayTweets, $hashTags);
 
 ?>
