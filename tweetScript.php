@@ -121,6 +121,42 @@ function printTweets($arrayTweets){
 	}
 }
 
+function tweets2hashtags($arrayTweets, &$hashTags){
+//	$matches = array();
+	echo "ASD";	
+	foreach ( $arrayTweets as $clave => $tweet){
+		
+		get_hashtags($tweet->getTweet(),$hashTags);
+	}
+
+	//var_dump( $hashTags);
+	//$hashTags["Nico"]++;
+	var_dump( $hashTags);
+	unset($hashTags[""]);
+	var_dump( $hashTags);
+	
+	
+}
+
+function get_hashtags($tweet, &$hashTags)
+{
+	echo $tweet . "<br/>";
+	$myTweet = $tweet;
+	while ( !empty($myTweet) ){
+		preg_match("/#(\\w+)/", $myTweet, $matches);
+		//echo "Un resultado es: " . $matches[0]. "<br/>";
+	$hashTags[strtolower($matches[0])]++;
+	//var_dump($hashTags);
+	$myTweet = stristr($myTweet, '#');
+	//echo "Asi quedo: " . $myTweet . "<br/>";
+	$myTweet = substr($myTweet, 1);
+	//echo "Por ultimo: " . $myTweet . "<br/>";	
+	///Cortarlo.
+	//$hashTags[]
+	}
+	
+	 // Outputs 'hashtag'
+}
 //LLamada a la API
 //getTweets("%23exito","3");
 ?>
