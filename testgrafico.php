@@ -8,7 +8,8 @@
 <?php 
 require_once("tweetScript.php");
 $arrayTweets = new ArrayObject();
-$arrayTweets = getTweets("%23Velez","10");
+$arrayTweets = getTweets("%23CFK","50");
+echo "Consulta Cableada de #CFK 50 tweets<br/>";
 $hashTags = array();
 tweets2hashtags($arrayTweets, $hashTags);
 
@@ -68,8 +69,8 @@ data.addRow(j_array_final);
 */
 
     // Set chart options
-    var options = {'width':600,
-                       'height':300,
+    var options = {'width':900,
+                       'height':400,
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666'};
 
@@ -92,8 +93,6 @@ data.addRow(j_array_final);
 </script>
 
 <body>
-<h2>¿Cómo Calificarías al servicio?</h2>	
-						<h6>Cantidad por tipo de respuesta</h6>
 						<div id='chart_div' class='chart'></div><br/>
 </body>
 </html>
