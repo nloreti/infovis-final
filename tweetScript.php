@@ -50,7 +50,7 @@ class tweet{
 //	Funcion que dado un query para la API de Twitter y una cantidad de tweets
 //	a devolver los encapsula en un array de objetos de PHP de tipo Tweet
 function getTweets($query,$quantity){
-	
+    
 	//Declaro Variables
 	$created_at;
 	$from_user;
@@ -64,12 +64,11 @@ function getTweets($query,$quantity){
 	//$current = "http://search.twitter.com/search.json?q=%23exito;rpp=1";
 
 	//Inicializo el Curl, me devuelve un json y lo parseo para PHP a formato TEXTO
-	$c = curl_init();
+    $c = curl_init();
 	curl_setopt($c, CURLOPT_URL, $current);
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$ce = curl_exec($c);
 	$trends = json_decode($ce,true);
-
 	//Itero por los resultados y voy creando Tweets que meto en el ArrayTweets Object
 	foreach ($trends as $key => $value){
 		if ( $key === "results" ){
@@ -97,7 +96,7 @@ function getTweets($query,$quantity){
 			}
 		}
 
-	}
+    }
 
 	//Imprime Tweets
 	//printTweets($arrayTweets);
