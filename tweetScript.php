@@ -110,6 +110,10 @@ function getTweets($query,$quantity){
 
 }
 
+
+//
+//Imprime un array de Tweets con toda su informacion
+//
 function printTweets($arrayTweets){
 	echo "<br/><br/>Imprimiendo Todos los Tweets<br/><br/>";
 	foreach ( $arrayTweets as $clave => $tweet){
@@ -121,42 +125,66 @@ function printTweets($arrayTweets){
 	}
 }
 
+//
+//Funcion que dado un array de tweets y un vector de hash/cantidad devuelve en este ultimo
+// cuantos hashtags de cada tipo se encuentran en el array de Tweets.
+//
 function tweets2hashtags($arrayTweets, &$hashTags){
-//	$matches = array();
-	echo "ASD";	
 	foreach ( $arrayTweets as $clave => $tweet){
 		
 		get_hashtags($tweet->getTweet(),$hashTags);
 	}
-
-	//var_dump( $hashTags);
-	//$hashTags["Nico"]++;
-	var_dump( $hashTags);
+	//Borro los vacios que se generan
 	unset($hashTags[""]);
-	var_dump( $hashTags);
 	
 	
 }
 
+//
+//Para un tweet (solo texto) devuelve los pares hash/cantidad
+//
 function get_hashtags($tweet, &$hashTags)
 {
-	echo $tweet . "<br/>";
 	$myTweet = $tweet;
 	while ( !empty($myTweet) ){
 		preg_match("/#(\\w+)/", $myTweet, $matches);
-		//echo "Un resultado es: " . $matches[0]. "<br/>";
 	$hashTags[strtolower($matches[0])]++;
-	//var_dump($hashTags);
 	$myTweet = stristr($myTweet, '#');
-	//echo "Asi quedo: " . $myTweet . "<br/>";
 	$myTweet = substr($myTweet, 1);
-	//echo "Por ultimo: " . $myTweet . "<br/>";	
-	///Cortarlo.
-	//$hashTags[]
+	}
+}
+
+function tweets2devices($arrayTweets, &$devices){
+	foreach ( $arrayTweets as $clave => $tweet){
+		get_devices($tweet->getSource(),$devices);
+	}
+	//Borro los vacios que se generan
+	unset($hashTags[""]);
+}
+
+function get_devices($source, &$devices)
+{
+	$mySource = strtolower($source);
+	if ( strpos($mySource,'web') !== false){
+		$devices["Web"]++;
+	}else if ( strpos($mySource,'android') !== false){
+		$devices["Android"]++;
+	}else if ( strpos($mySource,'iphone') !== false){
+		$devices["Iphone"]++;
+	}else if ( strpos($mySource,'tweetdeck') !== false){
+		$devices["Tweetdeck"]++;
+	}else if ( strpos($mySource,'symbian') !== false){
+		$devices["Symbian"]++;
+	}else if ( strpos($mySource,'blackberry') !== false){
+		$devices["BlackBerry"]++;
+	}else{
+		$devices["others"]++;
 	}
 	
-	 // Outputs 'hashtag'
+	
 }
+
+
 //LLamada a la API
 //getTweets("%23exito","3");
 ?>
