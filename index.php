@@ -25,7 +25,7 @@
                 <a href="./index.php">Home</a>
               </li>
                 <li>
-                    <a href="./comparacion.php">Comparaci&oacute;n de t&eacute;rminos</a>
+                    <a href="./comparacion.php">Comparaci&oacute;n de hashtags</a>
                 </li>
                 <li>
                     <a href="./mapa.php">B&uacute;squeda en el mapa</a>
@@ -40,7 +40,7 @@
 	  <p>Estad&iacute;sticas de Twitter en tiempo real</p>
 	  <p>
 		 <a href="./comparacion.php" class="btn btn-primary btn-large">
-		      Comparaci&oacute;n de t&eacute;rminos
+		      Comparaci&oacute;n de hashtags
 		 </a>
 		<a href="./mapa.php" class="btn btn-primary btn-large">
 		      B&uacute;squeda en el mapa
@@ -50,3 +50,5 @@
 	</div>
 
 </body>
+
+</html>
