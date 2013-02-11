@@ -26,9 +26,10 @@
 require_once("tweetScript.php");
 $arrayTweets = new ArrayObject();
 $arrayTweets = getTweets($query,$cantidad);
-echo "Consulta Cableada de #CFK 50 tweets<br/>";
 $hashTags = array();
 tweets2hashtags($arrayTweets, $hashTags);
+
+asort($hashTags);
 
 echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
