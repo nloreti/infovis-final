@@ -177,7 +177,7 @@ function get_devices($source, &$devices)
 	}else if ( strpos($mySource,'blackberry') !== false){
 		$devices["BlackBerry"]++;
 	}else{
-		$devices["others"]++;
+		$devices["Otros"]++;
 	}
 	
 	
