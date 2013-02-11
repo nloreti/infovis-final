@@ -158,7 +158,7 @@ function tweets2devices($arrayTweets, &$devices){
 		get_devices($tweet->getSource(),$devices);
 	}
 	//Borro los vacios que se generan
-	unset($hashTags[""]);
+	unset($devices[""]);
 }
 
 function get_devices($source, &$devices)

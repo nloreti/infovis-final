@@ -24,7 +24,7 @@
                 <a href="./index.php">Home</a>
               </li>
                 <li>
-                    <a href="./comparacion.php">Comparaci&oacute;n de t&eacute;rminos</a>
+                    <a href="./comparacion.php">Comparaciones</a>
                 </li>
                 <li>
                     <a href="./mapa.php">B&uacute;squeda en el mapa</a>
@@ -53,7 +53,10 @@
             </form>
         </div>
         <div class="iframe span8">
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags encontrados:</div>
             <iframe id="iframe" width="650" height="400" frameborder="0"></iframe>
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Fuentes de los tweets:</div>
+            <iframe id="iframeTorta" width="650" height="400" frameborder="0"></iframe>
         </div>
 	</div>
 
@@ -111,6 +114,8 @@
             var texto = $('#valorTexto').val();
             var iframe = document.getElementById('iframe');
             iframe.src = './barras.php?select=' + select + '&texto=' + texto + '&cantidad=' + cantidad;
+            var iframeTorta = document.getElementById('iframeTorta');
+            iframeTorta.src = './torta.php?select= ' + select + '&texto=' + texto + '&cantidad=' + cantidad; 
             var tiempo = $('#valorTiempo').val();
             window.setTimeout('ActualizarGrafico(' + round + ')', parseInt(tiempo) * 1000 * 60);
         }
