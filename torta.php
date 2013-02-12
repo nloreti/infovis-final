@@ -27,23 +27,25 @@ require_once("tweetScript.php");
 $arrayTweets = new ArrayObject();
 $arrayTweets = getTweets($query,$cantidad);
 $hashTags = array();
-tweets2hashtags($arrayTweets, $hashTags);
+tweets2devices($arrayTweets, $hashTags);
 
 asort($hashTags);
 
 echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
 echo "var j_array_final = new Array();";
+echo "var j_array_hashtag_test = new Array();";
 
 foreach ($hashTags as $key => $value){
-	echo "j_array_hashtag.push({'val1':'$key','val2':'$value'});";
+    echo "j_array_hashtag.push(['$key', parseInt('$value')]);";
+    echo "j_array_hashtag_test.push({val1:'$key', val2:'$value'});";
 }
 
 echo "</script>\n";
 ?>
 
 <script type="text/javascript">
-	
+	console.log(j_array_hashtag, 'test');
        // Load the Visualization API and the piechart package.
 	 //google.load('visualization', '1', {'packages':['annotatedtimeline']});    
   google.load('visualization', '1.0', {'packages':['corechart']});
@@ -57,15 +59,16 @@ echo "</script>\n";
       function drawChart() {
 
 var data = new google.visualization.DataTable();
-data.addColumn('string', '');
 j_array_final.push('');
-for( k = 0; k<j_array_hashtag.length;k++){
-       		data.addColumn('number', j_array_hashtag[k].val1);
-       		j_array_final.push(parseInt(j_array_hashtag[k].val2));
-}
+//for( k = 0; k<j_array_hashtag.length;k++){
+//       		data.addColumn('number', j_array_hashtag_test[k].val1);
+//       		j_array_final.push(parseInt(j_array_hashtag_test[k].val2));
+//}
+data.addColumn('string', 'Dispositivo');
+data.addColumn('number', 'Tweets');
 
+data.addRows(j_array_hashtag);
 console.log(j_array_final);
-data.addRow(j_array_final);
 
 			
 /*		
@@ -92,7 +95,7 @@ data.addRow(j_array_final);
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666'};
 
-  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+  var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
 
 
