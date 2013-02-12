@@ -16,13 +16,25 @@ class tweet{
 	protected $profile_image_url;
 	protected $source;
 	protected $text;
+	protected $pos_x;
+	protected $pos_y;
 
-	function __construct($created_at, $from_user, $profile_image_url, $source, $text){
+/*	function __construct($created_at, $from_user, $profile_image_url, $source, $text){
 		$this->created_at = $created_at;
 		$this->from_user = $from_user;
 		$this->profile_image_url = $profile_image_url;
 		$this->source = $source;
 		$this->text = $text;
+	}*/
+
+	function __construct($created_at, $from_user, $profile_image_url, $source, $text, $pos_x, $pos_y){
+		$this->created_at = $created_at;
+		$this->from_user = $from_user;
+		$this->profile_image_url = $profile_image_url;
+		$this->source = $source;
+		$this->text = $text;
+		$this->pos_x = $pos_x;
+		$this->pos_y = $pos_y;
 	}
 
 	function getCreated(){
@@ -45,6 +57,13 @@ class tweet{
 		return $this->text;
 	}
 
+	function posX(){
+		return $this->pos_x;
+	}
+
+	function posY(){
+		return $this->pos_y;
+	}
 }
 
 //	Funcion que dado un query para la API de Twitter y una cantidad de tweets
@@ -62,15 +81,16 @@ function getTweets($query,$quantity){
 	//Armo el query para pegarle a la API de Twitter
 	$current = "http://search.twitter.com/search.json?q=" . $query . ";rpp=" . $quantity;
 	//$current = "http://search.twitter.com/search.json?q=%23exito;rpp=1";
-
+	$current = "http://search.twitter.com/search.json?result_type=recent&geocode=40.8196205,-73.9616230,3.10km&rpp=100&page=1";
 	//Inicializo el Curl, me devuelve un json y lo parseo para PHP a formato TEXTO
     $c = curl_init();
 	curl_setopt($c, CURLOPT_URL, $current);
     curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$ce = curl_exec($c);
 	$trends = json_decode($ce,true);
+	//var_dump($trends);
 	//Itero por los resultados y voy creando Tweets que meto en el ArrayTweets Object
-	foreach ($trends as $key => $value){
+	foreach ($trends as $key => $value){	
 		if ( $key === "results" ){
 			foreach( $value as $item => $vector ){
 				//print_r($vector);
@@ -90,8 +110,24 @@ function getTweets($query,$quantity){
 					if($clave === "text"){
 						$text = $valor;
 					}
+					if ( $clave === "geo"){
+						
+						if ($valor != null ){
+							//var_dump($valor);
+							foreach ( $valor as $cor => $pos){
+								if ($cor === "coordinates"){
+									$pos_x = $pos[0];
+									$pos_y = $pos[1];
+								}
+							}
+							//}
+						}else{
+							$pos_x = null;
+							$pos_y = null;
+						}
+					}
 				}
-				$tweet = new tweet($created_at,$from_user,$profile_image_url,$source,$text);
+				$tweet = new tweet($created_at,$from_user,$profile_image_url,$source,$text, $pos_x, $pos_y);
 				$arrayTweets->append($tweet);
 			}
 		}
@@ -120,6 +156,10 @@ function printTweets($arrayTweets){
 		echo $tweet->getUser() . "<br/>";
 		echo $tweet->getImage() . "<br/>";
 		echo $tweet->getSource() . "<br/>";
+		if ( $tweet->posX() != null ){
+			echo $tweet->posX() . "<br/>";
+			echo $tweet->posY() . "<br/>";
+		}
 		echo $tweet->getTweet() . "<br/><br/><br/>";
 	}
 }
