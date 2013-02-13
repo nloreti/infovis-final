@@ -117,7 +117,7 @@
     function ActualizarGrafico(round){
         var roundPosta = $('#round').val();
         var active = $('#active').val();
-        if (roundPosta == round && active = '1')
+        if (roundPosta == round && active == '1')
         {
             var cantidad = $('#valorCantidad').val();
             var select = $('#valorSelect').val();

@@ -45,7 +45,6 @@ echo "</script>\n";
 ?>
 
 <script type="text/javascript">
-	console.log(j_array_hashtag, 'test');
        // Load the Visualization API and the piechart package.
 	 //google.load('visualization', '1', {'packages':['annotatedtimeline']});    
   google.load('visualization', '1.0', {'packages':['corechart']});
@@ -68,7 +67,6 @@ data.addColumn('string', 'Dispositivo');
 data.addColumn('number', 'Tweets');
 
 data.addRows(j_array_hashtag);
-console.log(j_array_final);
 
 			
 /*		
