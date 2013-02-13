@@ -40,6 +40,7 @@
                 <select id="usuarioOTermino">
                     <option value="usuario" selected>Usuarios</option>
                     <option value="termino">Terminos</option>
+                    <option value="hashtag">Hashtag</option>
                 </select>
                 Texto a buscar:<input name="texto" id="texto"/>
                 Cantidad de tweets:<input name="cantidad" id="cantidad"/>

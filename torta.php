@@ -90,8 +90,8 @@ console.log(j_array_final);
 */
 
     // Set chart options
-    var options = {'width':900,
-                       'height':400,
+    var options = {'width':600,
+                       'height':350,
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666'};
 

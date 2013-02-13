@@ -5,9 +5,13 @@
     $select = $_GET['select'];
     $texto = $_GET['texto'];
     $cantidad = $_GET['cantidad'];
-    if ($select == 'termino')
+    if ( $select == 'hashtag')
     {
-        $query = $texto;
+    		$query = '%23' . $texto;
+    }
+    else if ($select == 'termino')
+    {
+        	$query = $texto;
     } 
     else
     {
@@ -25,6 +29,8 @@
 <?php 
 require_once("tweetScript.php");
 $arrayTweets = new ArrayObject();
+//    echo $query."<br/>";
+//   echo $cantidad."<br/>";
 $arrayTweets = getTweets($query,$cantidad);
 $hashTags = array();
 tweets2hashtags($arrayTweets, $hashTags);
@@ -87,8 +93,8 @@ data.addRow(j_array_final);
 */
 
     // Set chart options
-    var options = {'width':900,
-                       'height':400,
+    var options = {'width':650,
+                       'height':300,
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666'};
 

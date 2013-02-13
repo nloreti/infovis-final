@@ -81,7 +81,7 @@ function getTweets($query,$quantity){
 	//Armo el query para pegarle a la API de Twitter
 	$current = "http://search.twitter.com/search.json?q=" . $query . ";rpp=" . $quantity;
 	//$current = "http://search.twitter.com/search.json?q=%23exito;rpp=1";
-	$current = "http://search.twitter.com/search.json?result_type=recent&geocode=40.8196205,-73.9616230,3.10km&rpp=100&page=1";
+	//$current = "http://search.twitter.com/search.json?result_type=recent&geocode=40.8196205,-73.9616230,3.10km&rpp=100&page=1";
 	//Inicializo el Curl, me devuelve un json y lo parseo para PHP a formato TEXTO
     $c = curl_init();
 	curl_setopt($c, CURLOPT_URL, $current);
