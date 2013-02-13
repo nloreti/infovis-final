@@ -46,11 +46,13 @@
                 Cantidad de tweets:<input name="cantidad" id="cantidad"/>
                 Cantidad de minutos entre refresco:<input name="tiempo" id="tiempo"/>
                  <a href="javascript:Actualizar();" class="btn btn-primary btn-large">Actualizar</a>
+                <a href="javascript:Stop();" class="btn btn-primary btn-large">Detener</a>
                 <input name="valorSelect" id="valorSelect" type="hidden" value="usuario"/>
                 <input name="valorTexto" id="valorTexto" type="hidden"/>
                 <input name="valorCantidad" id="valorCantidad" type="hidden"/>
                 <input name="valorTiempo" id="valorTiempo" type="hidden"/>
                 <input name="round" id="round" type="hidden" value="0"/>
+                <input name="active" id="active" type="hidden" value="1"/>
             </form>
         </div>
         <div class="iframe span8">
@@ -63,6 +65,11 @@
 
 
 <script>
+    function Stop()
+    {
+        $('#active').val('0');
+    }
+    
     function Actualizar()
     {
         var cantidad = $('#cantidad').val();
@@ -96,6 +103,7 @@
             $('#valorCantidad').val(cantidad);
             $('#valorTiempo').val(tiempo);
             $('#round').val(parseInt($('#round').val()) + 1);
+            $('#active').val('1');
             ActualizarGrafico($('#round').val());
         }
     }
@@ -107,8 +115,9 @@
     }
 
     function ActualizarGrafico(round){
-        roundPosta = $('#round').val();
-        if (roundPosta == round)
+        var roundPosta = $('#round').val();
+        var active = $('#active').val();
+        if (roundPosta == round && active = '1')
         {
             var cantidad = $('#valorCantidad').val();
             var select = $('#valorSelect').val();
