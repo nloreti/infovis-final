@@ -51,35 +51,26 @@ $newHashtags = '';
 $firstHashtag = true;
 session_start();
 
+if ($_GET['newSearch'] == 'true')
+{
+    $_SESSION['round'] = 0;
+} else
+{
+    if ($_SESSION['round'] != 5)
+    {
+        $_SESSION['round'] = $_SESSION['round'] + 1;
+    }
+}
+$round = $_SESSION['round'];
+
 $timedHashtags = explode(',', $_SESSION['hashtags']);
 foreach ($timedHashtags as $timedHashtag) 
 {
     if (isset($_SESSION[$timedHashtag]))
     {
     $quantities = explode(',', $_SESSION[$timedHashtag]);
-    $move = true;
-    
-    if ($quantities[4] == '-1')
-    {
-        $position = 4; $move = false;
-    }
 
-    if ($quantities[3] == '-1')
-    {
-        $position = 3; $move = false;
-    }
-
-    if ($quantities[2] == '-1')
-    {
-        $position = 2; $move = false;
-    }
-
-    if ($quantities[1] == '-1')
-    {
-        $position = 1; $move = false;
-    }
-
-    if ($move)
+    if ($round == 5)
     {
         $quantities[0] = $quantities[1];
         $quantities[1] = $quantities[2];
@@ -97,10 +88,10 @@ foreach ($timedHashtags as $timedHashtag)
     {
         if (isset($hashTags[$timedHashtag]))
         {
-            $quantities[$position] = $hashTags[$timedHashtag];
+            $quantities[$round] = $hashTags[$timedHashtag];
         } else
         {
-            $quantities[$position] = 0;
+            $quantities[$round] = 0;
         }
     }
 
@@ -136,7 +127,18 @@ foreach ($hashTags as $key => $value){
                 {
                     $newHashtags = $newHashtags . ',' . $key;
                 }
-                $_SESSION[$key] = $value . ',-1,-1,-1,-1';
+
+                if ($round == 0)
+                    $_SESSION[$key] = $value . ',-1,-1,-1,-1';
+                if ($round == 1)
+                    $_SESSION[$key] = '0,' . $value . ',-1,-1,-1';
+                if ($round == 2)
+                    $_SESSION[$key] = '0,0,' . $value . ',-1,-1';
+                if ($round == 3)
+                    $_SESSION[$key] = '0,0,0,' . $value . ',-1';
+                if ($round >= 4)
+                    $_SESSION[$key] = '0,0,0,0,' . $value;
+
             }
             $first++;
         }
