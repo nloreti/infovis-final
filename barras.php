@@ -1,6 +1,4 @@
 <?php
-//var_dump($_GET);
-
     include './tweetScript.php';
     $select = $_GET['select'];
     $texto = $_GET['texto'];
@@ -40,8 +38,119 @@ echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
 echo "var j_array_final = new Array();";
 
+if ($_GET['newSearch'] == 'true')
+{
+    session_start();
+    session_destroy();
+}
+
+$first = 0;
+$second = false;
+
+$newHashtags = '';
+$firstHashtag = true;
+session_start();
+
+$timedHashtags = explode(',', $_SESSION['hashtags']);
+foreach ($timedHashtags as $timedHashtag) 
+{
+    if (isset($_SESSION[$timedHashtag]))
+    {
+    $quantities = explode(',', $_SESSION[$timedHashtag]);
+    $move = true;
+    
+    if ($quantities[4] == '-1')
+    {
+        $position = 4; $move = false;
+    }
+
+    if ($quantities[3] == '-1')
+    {
+        $position = 3; $move = false;
+    }
+
+    if ($quantities[2] == '-1')
+    {
+        $position = 2; $move = false;
+    }
+
+    if ($quantities[1] == '-1')
+    {
+        $position = 1; $move = false;
+    }
+
+    if ($move)
+    {
+        $quantities[0] = $quantities[1];
+        $quantities[1] = $quantities[2];
+        $quantities[2] = $quantities[3];
+        $quantities[3] = $quantities[4];
+        if (isset($hashTags[$timedHashtag]))
+        {
+            $quantities[4] = $hashTags[$timedHashtag];
+        } else
+        {
+            $quantities[4] = 0;
+        }
+    }
+    else
+    {
+        if (isset($hashTags[$timedHashtag]))
+        {
+            $quantities[$position] = $hashTags[$timedHashtag];
+        } else
+        {
+            $quantities[$position] = 0;
+        }
+    }
+
+    if ($quantities[0] == 0 && $quantities[1] == 0 && $quantities[2] == 0 && $quantities[3] == 0 && $quantities[4] == 0)
+    {
+        unset($_SESSION[$timedHashtag]);
+    } else {
+        if ($firstHashtag)
+        {
+            $newHashtags = $timedHashtag;
+            $firstHashtag = false;
+        } else {
+            $newHashtags = $newHashtags . ',' . $timedHashtag;
+        }
+        $_SESSION[$timedHashtag] = implode(',', $quantities);
+    }
+    }    
+}
+
 foreach ($hashTags as $key => $value){
-	echo "j_array_hashtag.push({'val1':'$key','val2':'$value'});";
+    echo "j_array_hashtag.push({'val1':'$key','val2':'$value'});";
+    if ($first < 5 && $key != '')
+    {
+        if ($select != 'hashtag' || $second)
+        {
+            if (!isset($_SESSION[$key]))
+            {
+                if ($firstHashtag)
+                {
+                    $newHashtags = $key;
+                    $firstHashtag = false;
+                } else
+                {
+                    $newHashtags = $newHashtags . ',' . $key;
+                }
+                $_SESSION[$key] = $value . ',-1,-1,-1,-1';
+            }
+            $first++;
+        }
+        $second = true;
+    }
+}
+$_SESSION['hashtags'] = $newHashtags;
+if ($select == 'hashtag')
+{
+    echo "var k = 1;";
+}
+else
+{
+    echo "var k = 0;";
 }
 
 echo "</script>\n";
@@ -72,7 +181,7 @@ if ( j_array_hashtag.length < 10 ){
 }else{
   length = 10;
 }
-for( k = 1; k<length;k++){
+for( k; k<length;k++){
           if (typeof j_array_hashtag[k].val1 === "undefined"){
              data.addColumn('number', 'unknown');
             j_array_final.push(parseInt(j_array_hashtag[k].val2));
@@ -129,6 +238,6 @@ data.addRow(j_array_final);
 </script>
 
 <body>
-						<div id='chart_div' class='chart'></div><br/>
+					<div id='chart_div' class='chart'></div><br/>
 </body>
 </html>

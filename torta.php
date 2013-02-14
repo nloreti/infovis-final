@@ -20,7 +20,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <title>Testeo</title>
 </head>
 <?php 
@@ -112,7 +112,7 @@ data2.addRow(array_final);
 */
 
     // Set chart options
-    var options = {'width':300,
+    var options = {'width':650,
                        'height':350,
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666',
@@ -138,7 +138,7 @@ data2.addRow(array_final);
 		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
 		chart.draw(data9, options);*/
 
-}
+      }
 </script>
 
 <body>
