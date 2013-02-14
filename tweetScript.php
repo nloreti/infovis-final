@@ -79,7 +79,7 @@ function getTweets($query,$quantity){
 	$arrayTweets = new ArrayObject();
 
 	//Armo el query para pegarle a la API de Twitter
-	$current = "http://search.twitter.com/search.json?q=" . $query . ";rpp=" . $quantity;
+	$current = "http://search.twitter.com/search.json?q=" . $query . ";rpp=100"; //. $quantity;
 	//$current = "http://search.twitter.com/search.json?q=%23exito;rpp=1";
 	//$current = "http://search.twitter.com/search.json?result_type=recent&geocode=40.8196205,-73.9616230,3.10km&rpp=100&page=1";
 	//Inicializo el Curl, me devuelve un json y lo parseo para PHP a formato TEXTO
@@ -135,8 +135,10 @@ function getTweets($query,$quantity){
     }
 
 	//Imprime Tweets
-	//printTweets($arrayTweets);
-
+//	printTweets($arrayTweets);
+//	sort($arrayTweets);
+//	printTweets($arrayTweets);
+	
 	//Cierro el Curl
 	curl_close($c);
 
@@ -175,7 +177,7 @@ function tweets2hashtags($arrayTweets, &$hashTags){
 	}
 	//Borro los vacios que se generan
 	unset($hashTags[""]);
-	
+	arsort($hashTags);
 	
 }
 

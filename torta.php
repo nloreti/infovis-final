@@ -4,7 +4,8 @@
     include './tweetScript.php';
     $select = $_GET['select'];
     $texto = $_GET['texto'];
-    $cantidad = $_GET['cantidad'];
+    //$cantidad = $_GET['cantidad'];
+    $cantidad = 100;
     if ($select == 'termino')
     {
         $query = $texto;
@@ -35,6 +36,8 @@ echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
 echo "var j_array_final = new Array();";
 echo "var j_array_hashtag_test = new Array();";
+echo "var my_array = new Array();";
+echo "var array_final = new Array();";
 
 foreach ($hashTags as $key => $value){
     echo "j_array_hashtag.push(['$key', parseInt('$value')]);";
@@ -59,14 +62,35 @@ echo "</script>\n";
 
 var data = new google.visualization.DataTable();
 j_array_final.push('');
-//for( k = 0; k<j_array_hashtag.length;k++){
-//       		data.addColumn('number', j_array_hashtag_test[k].val1);
-//       		j_array_final.push(parseInt(j_array_hashtag_test[k].val2));
-//}
+//console.log(j_array_hashtag.length);
+
 data.addColumn('string', 'Dispositivo');
 data.addColumn('number', 'Tweets');
+//console.log(j_array_hashtag);
+my_array.push(["Web",0]);
+my_array.push(["Mobile",0]);
 
+for( k = 0; k<j_array_hashtag.length;k++){
+            //console.log(j_array_hashtag[k][0]);
+            if ( j_array_hashtag[k][0]== "Web"){
+              my_array[0][1] = j_array_hashtag[k][1];
+            }else{
+              my_array[1][1] += j_array_hashtag[k][1];      
+            }
+}
 data.addRows(j_array_hashtag);
+console.log(j_array_hashtag);
+console.log(my_array);
+
+var data2 = new google.visualization.DataTable();
+data2.addColumn('string', '');
+data2.addColumn('number', 'Web');
+data2.addColumn('number', 'Mobile');
+array_final.push('');
+array_final.push(parseInt(my_array[0][1]));
+array_final.push(parseInt(my_array[1][1]));
+console.log(array_final);
+data2.addRow(array_final);
 
 			
 /*		
@@ -88,14 +112,20 @@ data.addRows(j_array_hashtag);
 */
 
     // Set chart options
-    var options = {'width':600,
+    var options = {'width':300,
                        'height':350,
 						'backgroundColor.strokeWidth':1,
-						'backgroundColor.stroke':'#666'};
+						'backgroundColor.stroke':'#666',
+            'float':'left'};
 
   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
 
+ // var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+   //     chart.draw(data2, options);
+
+  var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart2.draw(data2, options);
 
 
 /*  var options = {'width':750,
@@ -112,6 +142,7 @@ data.addRows(j_array_hashtag);
 </script>
 
 <body>
-						<div id='chart_div' class='chart'></div><br/>
+					   <div id='chart_div' class='chart'></div><br/>
+            <div id='chart_div2' class='chart2'></div><br/>
 </body>
 </html>

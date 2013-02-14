@@ -20,10 +20,10 @@
 			  ITBA Visualizations
 			</a>
 			<ul class="nav">
-			  <li class="active">
+			  <li>
                 <a href="./index.php">Home</a>
               </li>
-                <li>
+                <li class="active">
                     <a href="./comparacion.php">Comparaciones</a>
                 </li>
                 <li>
@@ -43,20 +43,20 @@
                     <option value="hashtag">Hashtag</option>
                 </select>
                 Texto a buscar:<input name="texto" id="texto"/>
-                Cantidad de tweets:<input name="cantidad" id="cantidad"/>
+                <!--Cantidad de tweets:<input name="cantidad" id="cantidad"/>-->
                 Cantidad de minutos entre refresco:<input name="tiempo" id="tiempo"/>
                  <a href="javascript:Actualizar();" class="btn btn-primary btn-large">Actualizar</a>
                 <a href="javascript:Stop();" class="btn btn-primary btn-large">Detener</a>
                 <input name="valorSelect" id="valorSelect" type="hidden" value="usuario"/>
                 <input name="valorTexto" id="valorTexto" type="hidden"/>
-                <input name="valorCantidad" id="valorCantidad" type="hidden"/>
+              <!--  <input name="valorCantidad" id="valorCantidad" type="hidden"/>-->
                 <input name="valorTiempo" id="valorTiempo" type="hidden"/>
                 <input name="round" id="round" type="hidden" value="0"/>
                 <input name="active" id="active" type="hidden" value="1"/>
             </form>
         </div>
         <div class="iframe span8">
-            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags encontrados:</div>
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags asociados a su busqueda:</div>
             <iframe id="iframe" width="650" height="400" frameborder="0"></iframe>
             <div style="font-size:20px;margin-top:10px;font-weight:bold;">Fuentes de los tweets:</div>
             <iframe id="iframeTorta" width="650" height="400" frameborder="0"></iframe>
@@ -72,7 +72,7 @@
     
     function Actualizar()
     {
-        var cantidad = $('#cantidad').val();
+       // var cantidad = $('#cantidad').val();
         var opcion = $('#usuarioOTermino').val();
         var texto = $('#texto').val();
         var tiempo = $('#tiempo').val();
@@ -84,7 +84,7 @@
             error = true;
         }
 
-        if (!error && !isNormalInteger(cantidad))
+        /*if (!error && !isNormalInteger(cantidad))
         {
             alert('La cantidad debe ser de tipo numerica y positiva');
             error = true;
@@ -94,13 +94,13 @@
         {
             alert('La cantidad de minutos debe ser numerica y positiva');
             error = true;
-        }
+        }*/
 
         if (!error)
         {
             $('#valorSelect').val(opcion);
             $('#valorTexto').val(texto);
-            $('#valorCantidad').val(cantidad);
+            //$('#valorCantidad').val(cantidad);
             $('#valorTiempo').val(tiempo);
             $('#round').val(parseInt($('#round').val()) + 1);
             $('#active').val('1');
@@ -119,13 +119,13 @@
         var active = $('#active').val();
         if (roundPosta == round && active == '1')
         {
-            var cantidad = $('#valorCantidad').val();
+           // var cantidad = $('#valorCantidad').val();
             var select = $('#valorSelect').val();
             var texto = $('#valorTexto').val();
             var iframe = document.getElementById('iframe');
-            iframe.src = './barras.php?select=' + select + '&texto=' + texto + '&cantidad=' + cantidad;
+            iframe.src = './barras.php?select=' + select + '&texto=' + texto;
             var iframeTorta = document.getElementById('iframeTorta');
-            iframeTorta.src = './torta.php?select= ' + select + '&texto=' + texto + '&cantidad=' + cantidad; 
+            iframeTorta.src = './torta.php?select= ' + select + '&texto=' + texto; 
             var tiempo = $('#valorTiempo').val();
             window.setTimeout('ActualizarGrafico(' + round + ')', parseInt(tiempo) * 1000 * 60);
         }

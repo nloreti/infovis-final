@@ -12,6 +12,7 @@ $arrayTweets = getTweets("%23CFK","50");
 echo "Consulta Cableada de #CFK 50 tweets<br/>";
 $hashTags = array();
 tweets2hashtags($arrayTweets, $hashTags);
+var_dump($hashTags);
 
 echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";

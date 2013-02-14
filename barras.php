@@ -4,7 +4,8 @@
     include './tweetScript.php';
     $select = $_GET['select'];
     $texto = $_GET['texto'];
-    $cantidad = $_GET['cantidad'];
+   // $cantidad = $_GET['cantidad'];
+    $cantidad = 100; //Cable
     if ( $select == 'hashtag')
     {
     		$query = '%23' . $texto;
@@ -35,8 +36,6 @@ $arrayTweets = getTweets($query,$cantidad);
 $hashTags = array();
 tweets2hashtags($arrayTweets, $hashTags);
 
-asort($hashTags);
-
 echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
 echo "var j_array_final = new Array();";
@@ -65,9 +64,22 @@ echo "</script>\n";
 var data = new google.visualization.DataTable();
 data.addColumn('string', '');
 j_array_final.push('');
-for( k = 0; k<j_array_hashtag.length;k++){
-       		data.addColumn('number', j_array_hashtag[k].val1);
-       		j_array_final.push(parseInt(j_array_hashtag[k].val2));
+//console.log(j_array_hashtag);
+//j_array_hashtag.length
+var length;
+if ( j_array_hashtag.length < 10 ){
+  length = j_array_hashtag.length
+}else{
+  length = 10;
+}
+for( k = 1; k<length;k++){
+          if (typeof j_array_hashtag[k].val1 === "undefined"){
+             data.addColumn('number', 'unknown');
+            j_array_final.push(parseInt(j_array_hashtag[k].val2));
+          }else{
+       		 data.addColumn('number', j_array_hashtag[k].val1);
+       		 j_array_final.push(parseInt(j_array_hashtag[k].val2));
+          }
 }
 
 console.log(j_array_final);
