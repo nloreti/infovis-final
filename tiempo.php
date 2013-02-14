@@ -4,21 +4,28 @@ session_start();
 var_dump($_SESSION);
 
 echo "<script type='text/javascript'>\n";
+
 echo "var j_array_hashtags = new Array();";
-echo "var j_array_values = new Array();";
+echo "var j_array_value = new Array();";
 
 //$vector = new Array($_SESSION);
-$vector = [("Hola",1),("Chau",2)];
-var_dump($vector);
+
+
 foreach ( $vector as $key => $value) {
 	echo "j_array_hashtags.push('$key');";		
 }
+
+foreach ($vector as $key => $value) {
+	echo "j_array_value.push('$value');";	
+}
+
 
 echo "</script>\n"
 //echo "j_array_hashtags.push({'val1':'$day','val2':$total,'val3':$month,'val4':$year});";
 
 ?>
-
+<script type="text/javascript" src="./bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	
       // Load the Visualization API and the piechart package.
@@ -36,28 +43,36 @@ echo "</script>\n"
         // Create the data table.
 	var data9 = new google.visualization.DataTable();
 	data9.addColumn('string', '');
+	console.log(j_array_hashtags);
 	for(k=0; k < j_array_hashtags.length; k++){
 		data9.addColumn('number', j_array_hashtags[k]);
 	}
-
+	
 	var vector_final = new Array();
-	for(k=0;k< j_array_values.length;k++){
+	var flag = true;
+	for (i=0;i<5 && flag;i++){
 			var vector = new Array();
+			vector.push('');
+		for(k=0;k< j_array_value.length && flag;k++){
 			var values = j_array_value[k].split(",");
-			for( j = 0; j < values.length; j++){
-				if(values[j] != "-1"){
-						vector.push(parseInt(values[j]));						
-				}//else{
-				//	vector.push(values[j]);		
-				//}
-			}
-			vector_final.push(vector);
+				if(!isNaN(values[i])){
+						vector.push(parseInt(values[i]));						
+				}else{
+					console.log("FALSE");
+					flag = false;
+				}
+
+		}	
+		console.log(vector);
+		if (flag != false){
+		vector_final.push(vector);	
+		}
 	}
+	console.log(vector_final);
 
 //Vector final es el que se tendría que pushear.
 	for( k = 0; k< vector_final.length;k++){
-//			data9.addRow(['',j_array_values[k].val1, j_array_values[k].val2, j_array_values[k].val3, j_array_values[k].val4]);
-			data9.addRow(vector_final[k]);
+		data9.addRow(vector_final[k]);
 	}
 
 
