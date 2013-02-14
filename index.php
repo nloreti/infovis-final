@@ -27,9 +27,6 @@
                 <li>
                     <a href="./comparacion.php">Comparaciones</a>
                 </li>
-                <li>
-                    <a href="./mapa.php">B&uacute;squeda en el mapa</a>
-                </li>
 			</ul>
 		</div>
 	  </div>
@@ -41,9 +38,6 @@
 	  <p>
 		 <a href="./comparacion.php" class="btn btn-primary btn-large">
 		      Comparaciones
-		 </a>
-		<a href="./mapa.php" class="btn btn-primary btn-large">
-		      B&uacute;squeda en el mapa
 		 </a>
 	  </p>
 	</div>

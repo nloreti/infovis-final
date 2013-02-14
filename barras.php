@@ -40,8 +40,37 @@ echo "<script type='text/javascript'>\n";
 echo "var j_array_hashtag = new Array();";
 echo "var j_array_final = new Array();";
 
+$first = true;
+$second = false;
 foreach ($hashTags as $key => $value){
-	echo "j_array_hashtag.push({'val1':'$key','val2':'$value'});";
+    echo "j_array_hashtag.push({'val1':'$key','val2':'$value'});";
+    if ($first && $key != '')
+    {
+        if ($select != 'hashtag' || $second)
+        {
+            session_start();
+            if ($_SESSION['hashtags'] == '' || $_GET['newSearch'] == 'true')
+            {
+                $_SESSION['hashtags'] = $key;
+                $_SESSION['cantidades'] = $value;
+            }
+            else 
+            {
+                $_SESSION['hashtags'] = $_SESSION['hashtags'] . ',' . $key;
+                $_SESSION['cantidades'] = $_SESSION['cantidades'] . ',' . $value;
+            }
+            $first = false;
+        }
+        $second = true;
+    }
+}
+if ($select == 'hashtag')
+{
+    echo "var k = 1;";
+}
+else
+{
+    echo "var k = 0;";
 }
 
 echo "</script>\n";
@@ -72,7 +101,7 @@ if ( j_array_hashtag.length < 10 ){
 }else{
   length = 10;
 }
-for( k = 1; k<length;k++){
+for( k; k<length;k++){
           if (typeof j_array_hashtag[k].val1 === "undefined"){
              data.addColumn('number', 'unknown');
             j_array_final.push(parseInt(j_array_hashtag[k].val2));

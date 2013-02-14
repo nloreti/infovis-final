@@ -1,3 +1,4 @@
+<?php session_start(); $_SESSION['hashtags']=''; $_SESSION['cantidades']='';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -25,9 +26,6 @@
               </li>
                 <li class="active">
                     <a href="./comparacion.php">Comparaciones</a>
-                </li>
-                <li>
-                    <a href="./mapa.php">B&uacute;squeda en el mapa</a>
                 </li>
 			</ul>
 		</div>
@@ -59,7 +57,9 @@
             <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags asociados a su busqueda:</div>
             <iframe id="iframe" width="650" height="400" frameborder="0"></iframe>
             <div style="font-size:20px;margin-top:10px;font-weight:bold;">Fuentes de los tweets:</div>
-            <iframe id="iframeTorta" width="650" height="400" frameborder="0"></iframe>
+            <iframe id="iframeTorta" width="650" height="780" frameborder="0"></iframe>
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags populares en el tiempo:</div>
+            <iframe id="iframeTiempo" width=650" height="400" frameborder="0"></iframe>
         </div>
 	</div>
 
@@ -104,7 +104,7 @@
             $('#valorTiempo').val(tiempo);
             $('#round').val(parseInt($('#round').val()) + 1);
             $('#active').val('1');
-            ActualizarGrafico($('#round').val());
+            ActualizarGrafico($('#round').val(), true);
         }
     }
 
@@ -114,7 +114,7 @@
                 return String(n) === str && n >= 0;
     }
 
-    function ActualizarGrafico(round){
+    function ActualizarGrafico(round, newSearch){
         var roundPosta = $('#round').val();
         var active = $('#active').val();
         if (roundPosta == round && active == '1')
@@ -123,11 +123,13 @@
             var select = $('#valorSelect').val();
             var texto = $('#valorTexto').val();
             var iframe = document.getElementById('iframe');
-            iframe.src = './barras.php?select=' + select + '&texto=' + texto;
+            iframe.src = './barras.php?select=' + select + '&texto=' + texto + '&newSearch=' + newSearch;
             var iframeTorta = document.getElementById('iframeTorta');
             iframeTorta.src = './torta.php?select= ' + select + '&texto=' + texto; 
+            var iframeTiempo = document.getElementById('iframeTiempo');
+            iframeTiempo.src = './tiempo.php';
             var tiempo = $('#valorTiempo').val();
-            window.setTimeout('ActualizarGrafico(' + round + ')', parseInt(tiempo) * 1000 * 60);
+            window.setTimeout('ActualizarGrafico(' + round + ', false)', parseInt(tiempo) * 1000 * 60);
         }
     }
 </script>
