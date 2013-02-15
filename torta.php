@@ -83,16 +83,10 @@ console.log(j_array_hashtag);
 console.log(my_array);
 
 var data2 = new google.visualization.DataTable();
-data2.addColumn('string', '');
-data2.addColumn('number', 'Web');
-data2.addColumn('number', 'Mobile');
-array_final.push('');
-array_final.push(parseInt(my_array[0][1]));
-array_final.push(parseInt(my_array[1][1]));
-console.log(array_final);
-data2.addRow(array_final);
-
-			
+data2.addColumn('string', 'Metodo de acceso');
+data2.addColumn('number', 'Accesos');
+data2.addRows([['Web', my_array[0][1]],['Mobile', my_array[1][1]]]);
+ 		
 /*		
 			vector.push();
 			var values = j_array_hashtag[k].val2.split(",");
@@ -124,7 +118,7 @@ data2.addRow(array_final);
  // var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
    //     chart.draw(data2, options);
 
-  var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+  var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
         chart2.draw(data2, options);
 
 
