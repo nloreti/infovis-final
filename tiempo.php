@@ -10,9 +10,15 @@ foreach ($hashtags as $hashtag)
   $finalArray = $finalArray . ",'" . $hashtag . "'";
 }
 $finalArray = $finalArray . '],';
+$round = $_SESSION['round'];
+$round = $round - 4;
+if ($round < 0)
+{
+    $round = 0;
+}
 for ($i = 0; $i < 5; $i++)
 {
-  $finalArray = $finalArray . "['" . $i . "'";
+  $finalArray = $finalArray . "['" . $round . "'";
   foreach ($hashtags as $hashtag)
   {	
     $quantities = explode(',', $_SESSION[$hashtag]);
@@ -24,6 +30,7 @@ for ($i = 0; $i < 5; $i++)
   {
     $finalArray = $finalArray . ',';
   }
+    $round++;
 }
 $finalArray = $finalArray . ']';
 ?>

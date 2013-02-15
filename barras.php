@@ -129,7 +129,7 @@ foreach ($hashTags as $key => $value){
                 }
 
                 if ($round == 0)
-                    $_SESSION[$key] = $value . '0,0,0,0';
+                    $_SESSION[$key] = $value . ',0,0,0,0';
                 if ($round == 1)
                     $_SESSION[$key] = '0,' . $value . ',0,0,0';
                 if ($round == 2)
