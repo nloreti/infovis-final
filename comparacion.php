@@ -56,7 +56,7 @@
         <div class="iframe span8">
             <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags asociados a su busqueda:</div>
             <iframe id="iframe" width="650" height="400" frameborder="0"></iframe>
-            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Fuentes de los tweets:</div>
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Fuentes detallada los tweets:</div>
             <iframe id="iframeTorta" width="650" height="780" frameborder="0"></iframe>
             <div style="font-size:20px;margin-top:10px;font-weight:bold;">Hashtags populares en el tiempo:</div>
             <iframe id="iframeTiempo" width=650" height="400" frameborder="0"></iframe>

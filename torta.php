@@ -62,20 +62,22 @@ echo "</script>\n";
 
 var data = new google.visualization.DataTable();
 j_array_final.push('');
-//console.log(j_array_hashtag.length);
 
 data.addColumn('string', 'Dispositivo');
 data.addColumn('number', 'Tweets');
-//console.log(j_array_hashtag);
 my_array.push(["Web",0]);
+my_array.push(["Otros",0]);
 my_array.push(["Mobile",0]);
+
 
 for( k = 0; k<j_array_hashtag.length;k++){
             //console.log(j_array_hashtag[k][0]);
             if ( j_array_hashtag[k][0]== "Web"){
               my_array[0][1] = j_array_hashtag[k][1];
+            }else if ( j_array_hashtag[k][0] == "Otros"){
+              my_array[1][1] = j_array_hashtag[k][1];
             }else{
-              my_array[1][1] += j_array_hashtag[k][1];      
+              my_array[2][1] += j_array_hashtag[k][1];      
             }
 }
 data.addRows(j_array_hashtag);
@@ -85,29 +87,11 @@ console.log(my_array);
 var data2 = new google.visualization.DataTable();
 data2.addColumn('string', 'Metodo de acceso');
 data2.addColumn('number', 'Accesos');
-data2.addRows([['Web', my_array[0][1]],['Mobile', my_array[1][1]]]);
- 		
-/*		
-			vector.push();
-			var values = j_array_hashtag[k].val2.split(",");
-			console.log(values);	
-			for( j = 0; j < values.length; j++){
-				if(values[j] != "undefined"){
-						vector.push(parseFloat(values[j]));						
-				}else{
-					vector.push(values[j]);
-				}
-					
-			}
-			
-			j_array_final = vector;
-			data9.addRow(vector);
-}
-*/
+data2.addRows([['Web', my_array[0][1]],['Otros', my_array[1][1]],['Mobile', my_array[2][1]]]);
 
     // Set chart options
-    var options = {'width':650,
-                       'height':350,
+    var options = {'width':600,
+                       'height':300,
 						'backgroundColor.strokeWidth':1,
 						'backgroundColor.stroke':'#666',
             'float':'left'};
@@ -115,28 +99,15 @@ data2.addRows([['Web', my_array[0][1]],['Mobile', my_array[1][1]]]);
   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
 
- // var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
-   //     chart.draw(data2, options);
-
   var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
         chart2.draw(data2, options);
-
-
-/*  var options = {'width':750,
-                       'height':450,
-						'backgroundColor.strokeWidth':1,
-						'backgroundColor.stroke':'#666',
-						'title': 'Grafico de Alumnos y Promedios',
-						'pointSize':'2'};
-
-		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-		chart.draw(data9, options);*/
 
       }
 </script>
 
 <body>
 					   <div id='chart_div' class='chart'></div><br/>
+            <div style="font-size:20px;margin-top:10px;font-weight:bold;">Datos Inferidos:</div>
             <div id='chart_div2' class='chart2'></div><br/>
 </body>
 </html>

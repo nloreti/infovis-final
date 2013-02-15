@@ -175,8 +175,6 @@ echo "</script>\n";
 var data = new google.visualization.DataTable();
 data.addColumn('string', '');
 j_array_final.push('');
-//console.log(j_array_hashtag);
-//j_array_hashtag.length
 var length;
 if ( j_array_hashtag.length < 10 ){
   length = j_array_hashtag.length
@@ -192,28 +190,8 @@ for( k; k<length;k++){
        		 j_array_final.push(parseInt(j_array_hashtag[k].val2));
           }
 }
-
-console.log(j_array_final);
 data.addRow(j_array_final);
 
-			
-/*		
-			vector.push();
-			var values = j_array_hashtag[k].val2.split(",");
-			console.log(values);	
-			for( j = 0; j < values.length; j++){
-				if(values[j] != "undefined"){
-						vector.push(parseFloat(values[j]));						
-				}else{
-					vector.push(values[j]);
-				}
-					
-			}
-			
-			j_array_final = vector;
-			data9.addRow(vector);
-}
-*/
 
     // Set chart options
     var options = {'width':650,
@@ -223,18 +201,6 @@ data.addRow(j_array_final);
 
   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-
-
-
-/*  var options = {'width':750,
-                       'height':450,
-						'backgroundColor.strokeWidth':1,
-						'backgroundColor.stroke':'#666',
-						'title': 'Grafico de Alumnos y Promedios',
-						'pointSize':'2'};
-
-		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-		chart.draw(data9, options);*/
 
 }
 </script>
