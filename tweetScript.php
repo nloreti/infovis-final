@@ -200,7 +200,7 @@ function get_hashtags($tweet, &$hashTags)
 		}else{
 			$hashTags[strtolower($key)] = 1;
 		}
-			print_r(error_get_last());
+		//	print_r(error_get_last());
 			$myTweet = stristr($myTweet, '#');
 			$myTweet = substr($myTweet, 1);
 		
