@@ -88,7 +88,7 @@ function getTweets($query,$quantity){
     curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$ce = curl_exec($c);
 	$trends = json_decode($ce,true);
-	var_dump($trends);
+//	var_dump($trends);
 	//Itero por los resultados y voy creando Tweets que meto en el ArrayTweets Object
 	foreach ($trends as $key => $value){	
 		if ( $key === "results" ){
