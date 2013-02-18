@@ -125,7 +125,7 @@
             var iframe = document.getElementById('iframe');
             iframe.src = './barras.php?select=' + select + '&texto=' + texto + '&newSearch=' + newSearch;
             var iframeTorta = document.getElementById('iframeTorta');
-            iframeTorta.src = './torta.php?select= ' + select + '&texto=' + texto; 
+            iframeTorta.src = './torta.php?select=' + select + '&texto=' + texto; 
             var iframeTiempo = document.getElementById('iframeTiempo');
             iframeTiempo.src = './tiempo.php';
             var tiempo = $('#valorTiempo').val();

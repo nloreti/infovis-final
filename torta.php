@@ -6,9 +6,13 @@
     $texto = $_GET['texto'];
     //$cantidad = $_GET['cantidad'];
     $cantidad = 100;
-    if ($select == 'termino')
+    if ( $select == 'hashtag')
     {
-        $query = $texto;
+        $query = '%23' . $texto;
+    }
+    else if ($select == 'termino')
+    {
+          $query = $texto;
     } 
     else
     {

@@ -88,7 +88,7 @@ function getTweets($query,$quantity){
     curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$ce = curl_exec($c);
 	$trends = json_decode($ce,true);
-	//var_dump($trends);
+	var_dump($trends);
 	//Itero por los resultados y voy creando Tweets que meto en el ArrayTweets Object
 	foreach ($trends as $key => $value){	
 		if ( $key === "results" ){
@@ -186,13 +186,26 @@ function tweets2hashtags($arrayTweets, &$hashTags){
 //
 function get_hashtags($tweet, &$hashTags)
 {
+	error_reporting(E_ALL & ~E_NOTICE);
 	$myTweet = $tweet;
 	while ( !empty($myTweet) ){
 		preg_match("/#(\\w+)/", $myTweet, $matches);
-	$hashTags[strtolower($matches[0])]++;
-	$myTweet = stristr($myTweet, '#');
-	$myTweet = substr($myTweet, 1);
+		if ( !empty($matches)){
+			$key = $matches[0];
+		}else{
+			$key = "";
+		}
+		if(array_key_exists(strtolower($key), $hashTags)){
+			$hashTags[strtolower($key)]++;	
+		}else{
+			$hashTags[strtolower($key)] = 1;
+		}
+			print_r(error_get_last());
+			$myTweet = stristr($myTweet, '#');
+			$myTweet = substr($myTweet, 1);
+		
 	}
+
 }
 
 function tweets2devices($arrayTweets, &$devices){

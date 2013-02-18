@@ -5,7 +5,7 @@ require_once("tweetScript.php");
 $arrayTweets = new ArrayObject();
 $hashTags = array();
 $devices = array();
-$arrayTweets = getTweets("%23velez","20");
+$arrayTweets = getTweets("%23iWishIcouldMeet","20");
 
 //echo $arrayTweets;
 printTweets($arrayTweets);
